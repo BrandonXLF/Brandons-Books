@@ -17,7 +17,7 @@
 	<DownloadButton @click="FileStorage.downloadBook(book)" />
 	<ChevronIcon />
 	<RouterLink :to="{ name: 'journal', params: { book } }">Journal</RouterLink>
-	<RouterLink :to="{ name: 'ledger', params: { book } }">Ledgers</RouterLink>
+	<RouterLink :to="{ name: 'ledger', params: { book } }">Ledger</RouterLink>
 	<RouterLink :to="{ name: 'balancesheet', params: { book } }"
 		>Balance Sheet</RouterLink
 	>

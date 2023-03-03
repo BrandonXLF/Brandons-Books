@@ -64,7 +64,7 @@ const router = createRouter({
 					name: 'ledger',
 					component: LedgerListView,
 					meta: {
-						title: 'Ledgers'
+						title: 'Ledger'
 					}
 				},
 				{
