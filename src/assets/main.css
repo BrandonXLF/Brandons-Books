@@ -1,0 +1,14 @@
+body {
+	font-family: sans-serif;
+}
+
+h1,
+.logo {
+	font-family: serif;
+}
+
+fieldset {
+	border: 1px solid #888;
+	border-radius: 2px;
+	margin: 0;
+}

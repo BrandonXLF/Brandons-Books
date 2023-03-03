@@ -1,0 +1,14 @@
+.table {
+	display: grid;
+	white-space: nowrap;
+	grid-column-gap: 8px;
+}
+
+.table .header {
+	margin-bottom: 0.5em;
+	font-weight: bold;
+}
+
+.table h2 {
+	margin: 0.5em 0;
+}
