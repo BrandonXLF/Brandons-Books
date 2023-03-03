@@ -80,17 +80,13 @@
 			return;
 		}
 
-		const data = {
+		transactions.addTransaction({
+			book,
+			number: props.number,
 			changes: changesWithValue.value,
 			date: new Date(date.value),
 			summary: summary.value
-		};
-
-		if (props.number) {
-			transactions.editTransaction(book, props.number, data);
-		} else {
-			transactions.addTransaction(book, data);
-		}
+		});
 
 		emit('success');
 	}

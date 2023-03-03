@@ -31,10 +31,6 @@ export const useTransactionStore = defineStore('transactions', () => {
 		transaction.date = new Date(transaction.date);
 	});
 
-	transactions.value = transactions.value.sort(
-		(a, b) => a.date.getTime() - b.date.getTime()
-	);
-
 	watch([transactions, transactions.value], () =>
 		localStorage.setItem('transactions', JSON.stringify(transactions.value))
 	);
@@ -120,27 +116,22 @@ export const useTransactionStore = defineStore('transactions', () => {
 	}
 
 	function addTransaction(
-		book: number,
-		data: Omit<TransactionData, 'number' | 'book'>
+		data: Omit<TransactionData, 'number'> & { number?: number }
 	) {
-		transactions.value.push({
-			...data,
-			book: book,
-			number: (byBook(book).slice(-1)[0]?.number || 0) + 1
-		});
-	}
+		if (data.number) removeTransaction(data.book, data.number);
 
-	function editTransaction(
-		book: number,
-		number: number,
-		data: Omit<TransactionData, 'number' | 'book'>
-	) {
-		const target = byNumber(book, number);
+		const transactionsInBook = byBook(data.book);
+		const number =
+			data.number ||
+			Math.max(0, ...transactionsInBook.map(book => book.number)) + 1;
 
-		for (const key in data) {
-			// @ts-ignore
-			target[key] = data[key];
-		}
+		let index = transactionsInBook.findIndex(
+			transactions => transactions.date > data.date
+		);
+
+		index = index == -1 ? transactionsInBook.length : index;
+
+		transactions.value.splice(index, 0, { ...data, number });
 	}
 
 	function removeTransaction(book: number, number: number) {
@@ -164,7 +155,6 @@ export const useTransactionStore = defineStore('transactions', () => {
 		getTotalForAccountTypes,
 		getTotalForAccountType,
 		addTransaction,
-		editTransaction,
 		removeTransaction,
 		removeByBook
 	};

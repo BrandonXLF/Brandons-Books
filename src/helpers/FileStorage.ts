@@ -3,8 +3,8 @@ import { useBookStore } from '@/stores/books';
 import { useAccountStore } from '@/stores/accounts';
 
 import type { BookData } from '@/stores/books';
-import type { TransactionData }  from '@/stores/transactions';
-import type { AccountData }  from '@/stores/accounts';
+import type { TransactionData } from '@/stores/transactions';
+import type { AccountData } from '@/stores/accounts';
 
 export default class FileStorage {
 	static downloadBook(book: number) {
@@ -12,18 +12,17 @@ export default class FileStorage {
 		const books = useBookStore();
 		const accounts = useAccountStore();
 
-		const data = JSON.stringify({
-			book: books.byNumber(book),
+		const data = {
+			book: { ...books.byNumber(book), number: undefined },
 			accounts: accounts.byBook(book),
 			transactions: transactions.byBook(book)
-		});
+		};
 
-		const blob = new Blob([data], {type: 'text/json'});
+		const blob = new Blob([JSON.stringify(data)], { type: 'text/json' });
 
 		const el = document.createElement('a');
-
 		el.href = URL.createObjectURL(blob);
-		el.download = books.byNumber(book)?.name + '.bb';
+		el.download = data.book.name + '.bb';
 
 		document.body.appendChild(el);
 		el.click();
@@ -59,7 +58,7 @@ export default class FileStorage {
 			transactions: transactionsData,
 			accounts: accountsData
 		}: {
-			book: BookData;
+			book: Omit<BookData, 'number'>;
 			transactions: TransactionData[];
 			accounts: AccountData[];
 		} = JSON.parse(text);
@@ -68,10 +67,15 @@ export default class FileStorage {
 
 		transactionsData.forEach(transaction => {
 			transaction.date = new Date(transaction.date);
+			transaction.book = book;
 
-			transactions.addTransaction(book, transaction);
+			transactions.addTransaction(transaction);
 		});
 
-		accountsData.forEach(account => accounts.addAccount(book, account));
+		accountsData.forEach(account => {
+			account.book = book;
+
+			accounts.addAccount(account);
+		});
 	}
 }

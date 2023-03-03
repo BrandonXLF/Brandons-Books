@@ -31,28 +31,21 @@ export const useAccountStore = defineStore('accounts', () => {
 		return byBook(book).filter(account => account.type === type);
 	}
 
-	function addAccount(
-		book: number,
-		data: Omit<Omit<AccountData, 'number'>, 'book'>
-	) {
-		accounts.value.push({
-			...data,
-			book: book,
-			number: (byBook(book).slice(-1)[0]?.number || 0) + 1
-		});
-	}
+	function addAccount(data: Omit<AccountData, 'number'> & { number?: number }) {
+		if (data.number) removeAccount(data.book, data.number);
 
-	function editAccount(
-		book: number,
-		number: number,
-		data: Omit<Omit<AccountData, 'number'>, 'book'>
-	) {
-		const target = byNumber(book, number);
+		const accountsInBook = byBook(data.book);
+		const number =
+			data.number ||
+			Math.max(0, ...accountsInBook.map(book => book.number)) + 1;
 
-		for (const key in data) {
-			// @ts-ignore
-			target[key] = data[key];
-		}
+		let index = accountsInBook.findIndex(
+			account => account.userNumber > data.userNumber
+		);
+
+		index = index == -1 ? accountsInBook.length : index;
+
+		accounts.value.splice(index, 0, { ...data, number });
 	}
 
 	function removeAccount(book: number, number: number) {
@@ -71,7 +64,6 @@ export const useAccountStore = defineStore('accounts', () => {
 		byNumber,
 		byType,
 		addAccount,
-		editAccount,
 		removeAccount,
 		removeByBook
 	};

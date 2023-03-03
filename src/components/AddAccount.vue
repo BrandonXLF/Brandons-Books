@@ -56,17 +56,13 @@
 			return;
 		}
 
-		const data = {
+		accounts.addAccount({
+			book,
+			number: props.number,
 			userNumber: userNumber.value,
 			name: name.value,
 			type: type.value
-		};
-
-		if (props.number) {
-			accounts.editAccount(book, props.number, data);
-		} else {
-			accounts.addAccount(book, data);
-		}
+		});
 
 		emit('success');
 	}

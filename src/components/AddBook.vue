@@ -23,15 +23,10 @@
 			return;
 		}
 
-		const data = {
+		books.addBook({
+			number: props.number,
 			name: name.value
-		};
-
-		if (props.number) {
-			books.editBook(props.number, data);
-		} else {
-			books.addBook(data);
-		}
+		});
 
 		emit('success');
 	}

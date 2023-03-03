@@ -19,24 +19,20 @@ export const useBookStore = defineStore('books', () => {
 		return books.value.find(book => book.number === number);
 	}
 
-	function addBook(data: Omit<BookData, 'number'>) {
-		const number = (books.value.slice(-1)[0]?.number || 0) + 1;
+	function addBook(data: Omit<BookData, 'number'> & { number?: number }) {
+		if (data.number) {
+			const index = books.value.findIndex(book => book.number === data.number);
 
-		books.value.push({
-			...data,
-			number: number
-		});
+			books.value[index] = data as BookData;
+
+			return data.number;
+		}
+
+		const number = Math.max(0, ...books.value.map(book => book.number)) + 1;
+
+		books.value.push({ ...data, number });
 
 		return number;
-	}
-
-	function editBook(number: number, data: Omit<BookData, 'number'>) {
-		const target = byNumber(number);
-
-		for (const key in data) {
-			// @ts-ignore
-			target[key] = data[key];
-		}
 	}
 
 	function removeBook(number: number) {
@@ -47,7 +43,6 @@ export const useBookStore = defineStore('books', () => {
 		books,
 		byNumber,
 		addBook,
-		editBook,
 		removeBook
 	};
 });
