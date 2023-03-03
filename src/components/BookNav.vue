@@ -1,7 +1,7 @@
 <script setup lang="ts">
 	import { RouterLink, useRoute } from 'vue-router';
 	import { useBookStore } from '@/stores/books';
-	import Chevron from '@/components/Chevron.vue';
+	import ChevronIcon from '@/components/ChevronIcon.vue';
 	import FileStorage from '@/helpers/FileStorage';
 	import DownloadButton from '@/components/DownloadButton.vue';
 
@@ -12,10 +12,10 @@
 </script>
 
 <template>
-	<Chevron class="chevron" />
-	<span class="book-name">{{ name }}</span>
+	<ChevronIcon />
+	<span>{{ name }}</span>
 	<DownloadButton @click="FileStorage.downloadBook(book)" />
-	<Chevron class="chevron" />
+	<ChevronIcon />
 	<RouterLink :to="{ name: 'journal', params: { book } }">Journal</RouterLink>
 	<RouterLink :to="{ name: 'ledger', params: { book } }">Ledgers</RouterLink>
 	<RouterLink :to="{ name: 'balancesheet', params: { book } }"
@@ -27,13 +27,8 @@
 </template>
 
 <style scoped>
-	nav > .router-link-active {
+	.router-link-active {
 		color: black;
 		text-decoration: none;
-	}
-
-	.book-name,
-	.chevron {
-		margin-right: 0.5em;
 	}
 </style>
