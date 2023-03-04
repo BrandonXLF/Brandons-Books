@@ -19,7 +19,7 @@
 
 <template>
 	<template v-for="(change, index) in transaction.changes" :key="index">
-		<div style="margin-right: 0.5em">
+		<div>
 			<ActionPopup
 				v-if="index === 0"
 				:type="DeleteEntry"
@@ -78,7 +78,10 @@
 
 <style scoped>
 	.summary {
-		margin-bottom: 1em;
 		font-style: italic;
+	}
+
+	.summary:not(.summary:nth-last-child(4)) {
+		margin-bottom: 1em;
 	}
 </style>

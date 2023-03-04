@@ -2,6 +2,8 @@
 	display: grid;
 	white-space: nowrap;
 	grid-column-gap: 8px;
+	overflow-x: auto;
+	margin-bottom: 1em;
 }
 
 .table .header {

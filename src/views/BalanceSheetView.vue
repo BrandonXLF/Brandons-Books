@@ -38,4 +38,10 @@
 		align-items: start;
 		gap: 2em;
 	}
+
+	@media (max-width: 400px) {
+		.balance-sheets {
+			gap: 1em;
+		}
+	}
 </style>
