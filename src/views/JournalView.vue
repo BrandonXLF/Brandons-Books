@@ -15,8 +15,8 @@
 		<div class="header">Date</div>
 		<div class="header">Particulars</div>
 		<div class="header">P.R.</div>
-		<div class="header">Debit</div>
-		<div class="header">Credit</div>
+		<div class="header value">Debit</div>
+		<div class="header value">Credit</div>
 		<JournalEntry
 			v-for="transaction in transactions.byBook(book)"
 			:transaction="transaction"

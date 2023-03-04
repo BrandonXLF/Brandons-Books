@@ -14,3 +14,7 @@
 .table h2 {
 	margin: 0.5em 0;
 }
+
+.table :deep(.value) {
+	text-align: right;
+}

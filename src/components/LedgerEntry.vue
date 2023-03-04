@@ -20,23 +20,23 @@
 	<div>
 		<RouterLink :to="{ name: 'journal', params: { book } }">J1</RouterLink>
 	</div>
-	<div>
+	<div class="value">
 		<Figure v-if="change.amount > 0" :value="change.amount" />
 	</div>
-	<div>
+	<div class="value">
 		<Figure v-if="change.amount < 0" :value="-change.amount" />
 	</div>
 	<div class="dr-cr">
 		<template v-if="change.total >= 0">Dr</template>
 		<template v-else>Cr</template>
 	</div>
-	<div>
+	<div class="value">
 		<Figure :value="Math.abs(change.total)" />
 	</div>
 </template>
 
 <style scoped>
 	.dr-cr {
-		margin-right: 1em;
+		margin-left: 1em;
 	}
 </style>

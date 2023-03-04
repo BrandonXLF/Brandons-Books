@@ -20,7 +20,7 @@
 			<div>
 				<em>Undistributed Equity</em>
 			</div>
-			<div>
+			<div  class="value">
 				<Figure
 					:value="
 						transactions.getTotalForAccountTypes(book, incomeAccountTypes, date)

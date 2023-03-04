@@ -33,7 +33,7 @@
 				<div>
 					{{ account.name }}
 				</div>
-				<div>
+				<div class="value">
 					<Figure
 						:value="transactions.getTotalForAccount(book, account.number, date)"
 						:accountType="account.type"

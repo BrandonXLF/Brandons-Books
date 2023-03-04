@@ -44,7 +44,7 @@
 		</template>
 		<div style="margin-top: 0.5em">Net Income</div>
 		<div></div>
-		<div style="margin-top: 0.5em">
+		<div style="margin-top: 0.5em" class="value">
 			<Figure
 				:value="transactions.getTotalForAccountTypes(book, incomeAccountTypes, date)"
 				:multiplier="-1"

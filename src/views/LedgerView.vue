@@ -45,10 +45,10 @@
 			<div class="header">Date</div>
 			<div class="header">Particulars</div>
 			<div class="header">P.R.</div>
-			<div class="header">Debit</div>
-			<div class="header">Credit</div>
+			<div class="header value">Debit</div>
+			<div class="header value">Credit</div>
 			<div class="header"></div>
-			<div class="header">Balance</div>
+			<div class="header value">Balance</div>
 			<LedgerEntry
 				v-for="(change, index) in transactions.getChangesForAccount(
 					book,

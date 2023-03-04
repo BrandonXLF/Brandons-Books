@@ -59,10 +59,10 @@
 				{{ accounts.byNumber(book, change.account)!.userNumber }}
 			</RouterLink>
 		</div>
-		<div>
+		<div class="value">
 			<Figure v-if="change.amount > 0" :value="change.amount" />
 		</div>
-		<div>
+		<div class="value">
 			<Figure v-if="change.amount < 0" :value="-change.amount" />
 		</div>
 	</template>
