@@ -8,7 +8,10 @@
 	}>();
 
 	if (!props.modelValue) {
-		emit('update:modelValue', new Date());
+		const date = new Date();
+
+		date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+		emit('update:modelValue', date);
 	}
 </script>
 
