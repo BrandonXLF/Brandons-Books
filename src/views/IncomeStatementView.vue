@@ -1,14 +1,11 @@
 <script setup lang="ts">
 	import { accountTypes, incomeAccountTypes } from '@/data/accountTypes';
-	import { useAccountStore } from '@/stores/accounts';
-	import { useTransactionStore } from '@/stores/transactions';
 	import { useRoute } from 'vue-router';
-	import Figure from '@/components/Figure.vue';
 	import TopDate from '@/components/TopDate.vue';
 	import { ref } from 'vue';
+	import TypeTotal from '@/components/TypeTotal.vue';
+	import AccountsTotal from '@/components/AccountsTotal.vue';
 
-	const accounts = useAccountStore();
-	const transactions = useTransactionStore();
 	const book = parseInt(useRoute().params.book as string);
 	const date = ref<Date | undefined>(new Date());
 </script>
@@ -18,38 +15,30 @@
 	<div class="table income-statement">
 		<template v-for="(accountType, index) in incomeAccountTypes" :key="index">
 			<h2>{{ accountTypes[accountType].name }}</h2>
-			<template
-				v-for="account in accounts.byType(book, accountType)"
-				:key="account.number"
-			>
-				<div>{{ account.name }}</div>
-				<div>
-					<Figure
-						:value="transactions.getTotalForAccount(book, account.number, date)"
-						:accountType="accountType"
-					/>
-				</div>
-				<div></div>
-			</template>
-			<div>
-				<em>Total {{ accountTypes[accountType].name }}</em>
-			</div>
-			<div></div>
-			<div>
-				<Figure
-					:value="transactions.getTotalForAccountType(book, accountType, date)"
-					:accountType="accountType"
-				/>
-			</div>
-		</template>
-		<div style="margin-top: 0.5em">Net Income</div>
-		<div></div>
-		<div style="margin-top: 0.5em" class="value">
-			<Figure
-				:value="transactions.getTotalForAccountTypes(book, incomeAccountTypes, date)"
-				:multiplier="-1"
+			<AccountsTotal
+				:book="book"
+				:type="accountType"
+				:date="date"
+				:threeColEmpty="3"
 			/>
-		</div>
+			<TypeTotal
+				valueClass="pre-total"
+				:book="book"
+				:type="accountType"
+				:date="date"
+				:name="`Total ${accountTypes[accountType].name}`"
+				:threeColEmpty="2"
+				:totalDepth="1"
+			/>
+		</template>
+		<TypeTotal
+			valueClass="total"
+			:book="book"
+			:type="incomeAccountTypes"
+			:date="date"
+			name="Net Income"
+			:threeColEmpty="2"
+		/>
 	</div>
 </template>
 

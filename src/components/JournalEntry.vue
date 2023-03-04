@@ -46,7 +46,7 @@
 				}}-{{ transaction.date.getUTCDate().toString().padStart(2, '0') }}
 			</template>
 		</div>
-		<div>
+		<div :class="change.amount < 0 ? 'credit' : 'debit'">
 			{{ accounts.byNumber(book, change.account)!.name }}
 		</div>
 		<div>
@@ -83,5 +83,9 @@
 
 	.summary:not(.summary:nth-last-child(4)) {
 		margin-bottom: 1em;
+	}
+	
+	.credit {
+		margin-left: 0.75em;
 	}
 </style>

@@ -4,6 +4,7 @@
 	grid-column-gap: 8px;
 	overflow-x: auto;
 	margin-bottom: 1em;
+	line-height: 1.3;
 }
 
 .table .header {
@@ -17,4 +18,12 @@
 
 .table :deep(.value) {
 	text-align: right;
+}
+
+.table :deep(.pre-total) {
+	border-bottom: 1px solid black;
+}
+
+.table :deep(.total) {
+	border-bottom: 3px double black;
 }

@@ -1,47 +1,51 @@
 <script setup lang="ts">
-	import { accountTypes, incomeAccountTypes } from '@/data/accountTypes';
-	import { useAccountStore } from '@/stores/accounts';
-	import { useTransactionStore } from '@/stores/transactions';
+	import {
+		AccountType,
+		accountTypes,
+		incomeAccountTypes
+	} from '@/data/accountTypes';
 	import { useRoute } from 'vue-router';
-	import Figure from '@/components/Figure.vue';
+	import AccountsTotal from '@/components/AccountsTotal.vue';
+	import TypeTotal from '@/components/TypeTotal.vue';
 
-	defineProps<{
-		multiplier: number;
+	const props = defineProps<{
+		types: AccountType[];
 		date?: Date;
 	}>();
 
-	const accounts = useAccountStore();
-	const transactions = useTransactionStore();
 	const book = parseInt(useRoute().params.book as string);
+	const typeInfos = props.types.map(type => accountTypes[type]);
 </script>
 
 <template>
 	<div class="table balance-sheet">
-		<template
-			v-for="accountType in Object.values(accountTypes).filter(
-				accountType =>
-					accountType.multiplier === multiplier &&
-					!incomeAccountTypes.includes(accountType.type)
-			)"
-			:key="accountType.name"
-		>
+		<template v-for="(accountType, index) in typeInfos" :key="accountType.name">
 			<h2>{{ accountType.name }}</h2>
-			<template
-				v-for="account in accounts.byType(book, accountType.type)"
-				:key="account.number"
-			>
-				<div>
-					{{ account.name }}
-				</div>
-				<div class="value">
-					<Figure
-						:value="transactions.getTotalForAccount(book, account.number, date)"
-						:accountType="account.type"
-					/>
-				</div>
-			</template>
+			<AccountsTotal :book="book" :type="accountType.type" :date="date" />
+			<TypeTotal
+				v-if="typeInfos.length > 1"
+				:valueClass="index === typeInfos.length - 1 ? 'pre-total' : ''"
+				:book="book"
+				:type="
+					accountType.netIncome
+						? [...incomeAccountTypes, accountType.type]
+						: accountType.type
+				"
+				:name="`Total ${accountType.name}`"
+				:date="date"
+				:totalDepth="1"
+			/>
 		</template>
-		<slot />
+		<TypeTotal
+			valueClass="total"
+			:book="book"
+			:type="typeInfos.map(typeInfo => typeInfo.type)"
+			:name="`Total ${typeInfos
+				.map(accountType => accountType.name)
+				.join(' and ')}`"
+			:date="date"
+			:totalDepth="typeInfos.length > 1 ? 2 : 1"
+		/>
 	</div>
 </template>
 
@@ -49,7 +53,7 @@
 	@import url('@/assets/table.css');
 
 	.balance-sheet {
-		grid-template-columns: 1fr max-content;
+		grid-template-columns: 5fr 1fr;
 		max-width: 30em;
 		flex: 0 1 100%;
 	}

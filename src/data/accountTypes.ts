@@ -6,35 +6,38 @@ export enum AccountType {
 	Expense
 }
 
-export const accountTypes = {
+export type AccountTypeInfo = {
+	type: AccountType;
+	name: string;
+	multiplier: -1 | 1;
+	netIncome?: string;
+};
+
+export const accountTypes: { [key in AccountType]: AccountTypeInfo } = {
 	[AccountType.Asset]: {
 		type: AccountType.Asset,
-		name: 'Asset',
-		prefix: 1,
+		name: 'Assets',
 		multiplier: 1
 	},
 	[AccountType.Liability]: {
 		type: AccountType.Liability,
-		name: 'Liability',
-		prefix: 1,
+		name: 'Liabilities',
 		multiplier: -1
 	},
 	[AccountType.Equity]: {
 		type: AccountType.Equity,
 		name: 'Equity',
-		prefix: 1,
-		multiplier: -1
+		multiplier: -1,
+		netIncome: 'Retained Earnings'
 	},
 	[AccountType.Revenue]: {
 		type: AccountType.Revenue,
-		name: 'Revenue',
-		prefix: 1,
+		name: 'Revenues',
 		multiplier: -1
 	},
 	[AccountType.Expense]: {
 		type: AccountType.Expense,
-		name: 'Expense',
-		prefix: 1,
+		name: 'Expenses',
 		multiplier: 1
 	}
 };

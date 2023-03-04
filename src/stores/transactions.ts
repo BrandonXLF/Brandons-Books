@@ -97,9 +97,9 @@ export const useTransactionStore = defineStore('transactions', () => {
 		const accountStore = useAccountStore();
 
 		for (const [_, change] of iterateChanges(book, date)) {
-			const type = accountStore.byNumber(book, change.account)?.type;
+			const type = accountStore.byNumber(book, change.account)!.type;
 
-			if (!type || !types.includes(type)) continue;
+			if (!types.includes(type)) continue;
 
 			total += change.amount;
 		}
