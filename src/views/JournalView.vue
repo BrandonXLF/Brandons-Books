@@ -35,8 +35,8 @@
 	@import url('@/assets/table.css');
 
 	.journal {
-		grid-template-columns: max-content 2fr 5fr repeat(3, 1fr);
-		max-width: 50em;
+		grid-template-columns: max-content 2fr 8fr 1fr 2fr 2fr;
+		max-width: 52em;
 	}
 
 	.summary {

@@ -53,8 +53,8 @@
 	@import url('@/assets/table.css');
 
 	.balance-sheet {
-		grid-template-columns: 5fr 1fr;
-		max-width: 30em;
+		grid-template-columns: 4fr 1fr;
+		max-width: 32em;
 		flex: 0 1 100%;
 	}
 

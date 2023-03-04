@@ -22,7 +22,7 @@
 	<div v-if="account === undefined">Account does not exist.</div>
 	<div v-else :id="account.userNumber">
 		<div class="title">
-			<h2>{{ account.name }} #{{ account.userNumber }}</h2>
+			<h2>{{ account.name }} &nbsp; No. {{ account.userNumber }}</h2>
 			<ActionPopup
 				:type="DeleteAccount"
 				:number="account.number"
@@ -75,7 +75,7 @@
 	}
 
 	.ledger {
-		grid-template-columns: 2fr 5fr repeat(3, 1fr) max-content 1fr;
-		max-width: 50em;
+		grid-template-columns: 2fr 6fr 1fr 2fr 2fr max-content 2fr;
+		max-width: 52em;
 	}
 </style>

@@ -46,8 +46,8 @@
 	@import url('@/assets/table.css');
 
 	.income-statement {
-		grid-template-columns: 5fr repeat(2, 1fr);
-		max-width: 40em;
+		grid-template-columns: 4fr 1fr 1fr;
+		max-width: 39em;
 	}
 
 	.income-statement h2 {
