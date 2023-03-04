@@ -38,8 +38,4 @@
 		grid-template-columns: max-content 2fr 8fr 1fr 2fr 2fr;
 		max-width: 52em;
 	}
-
-	.summary {
-		margin-bottom: 1em;
-	}
 </style>

@@ -81,11 +81,11 @@
 		font-style: italic;
 	}
 
-	.summary:not(.summary:nth-last-child(4)) {
-		margin-bottom: 1em;
+	.summary:not(:nth-last-child(4)) {
+		padding-bottom: 1em;
 	}
-	
+
 	.credit {
-		margin-left: 0.75em;
+		padding-left: 0.75em;
 	}
 </style>
