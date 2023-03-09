@@ -14,7 +14,6 @@
 
 	const props = defineProps<{
 		number?: number;
-		submissionNumber?: number;
 	}>();
 
 	const accounts = useAccountStore();
@@ -30,9 +29,7 @@
 	const summary = ref<string>(transaction?.summary ?? '');
 
 	const changes = ref<AccountChange[]>(
-		transaction?.changes.map(change => {
-			return { ...change };
-		}) || []
+		transaction?.changes.map(change => ({ ...change })) || []
 	);
 
 	const unchangedAccounts = computed(() => {

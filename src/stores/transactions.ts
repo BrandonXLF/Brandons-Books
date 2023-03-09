@@ -31,8 +31,11 @@ export const useTransactionStore = defineStore('transactions', () => {
 		transaction.date = new Date(transaction.date);
 	});
 
-	watch([transactions, transactions.value], () =>
-		localStorage.setItem('transactions', JSON.stringify(transactions.value))
+	watch(
+		transactions,
+		() =>
+			localStorage.setItem('transactions', JSON.stringify(transactions.value)),
+		{ deep: true }
 	);
 
 	function byBook(book: number) {

@@ -15,8 +15,10 @@ export const useAccountStore = defineStore('accounts', () => {
 		JSON.parse(localStorage.getItem('accounts') || '[]')
 	);
 
-	watch([accounts, accounts.value], () =>
-		localStorage.setItem('accounts', JSON.stringify(accounts.value))
+	watch(
+		accounts,
+		() => localStorage.setItem('accounts', JSON.stringify(accounts.value)),
+		{ deep: true }
 	);
 
 	function byBook(book: number) {

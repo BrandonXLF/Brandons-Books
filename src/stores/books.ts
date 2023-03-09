@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { ref, watch, computed } from 'vue';
+import { ref, watch } from 'vue';
 
 export interface BookData {
 	number: number;
@@ -11,8 +11,10 @@ export const useBookStore = defineStore('books', () => {
 		JSON.parse(localStorage.getItem('books') || '[]')
 	);
 
-	watch([books, books.value], () =>
-		localStorage.setItem('books', JSON.stringify(books.value))
+	watch(
+		books,
+		() => localStorage.setItem('books', JSON.stringify(books.value)),
+		{ deep: true }
 	);
 
 	function byNumber(number: number) {
