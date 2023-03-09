@@ -40,7 +40,7 @@
 			<DownloadButton @click="FileStorage.downloadBook(book.number)" />
 		</div>
 	</div>
-	<div>
+	<div class="container">
 		<ActionPopup
 			:type="AddBook"
 			toggleText="Create Book"
@@ -49,6 +49,11 @@
 		/>
 		<button @click="FileStorage.uploadBook()">Upload Book</button>
 	</div>
+	<hr class="container" />
+	<footer>
+		Online bookkeeping program by
+		<a href="https://www.brandonfowler.me/">Brandon Fowler</a>.
+	</footer>
 </template>
 
 <style scoped>
