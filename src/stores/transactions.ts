@@ -131,7 +131,17 @@ export const useTransactionStore = defineStore('transactions', () => {
 
 		index = index == -1 ? transactionsInBook.length : index;
 
-		transactions.value.splice(index, 0, { ...data, number });
+		const changes = transaction.changes.sort((a, b) => {
+			const accA = accounts.byNumber(a.account);
+			const accB = accounts.byNumber(b.account);
+
+			return (accountTypes[accB.type].multiplier - accountTypes[accA.type].multiplier) 
+				|| (accA.userNumber > accB.userNumber && 1) 
+				|| (accA.userNumber < accB.userNumber && -1)
+				|| 0;
+		});
+
+		transactions.value.splice(index, 0, { ...data, number, changes });
 	}
 
 	function removeTransaction(book: number, number: number) {
