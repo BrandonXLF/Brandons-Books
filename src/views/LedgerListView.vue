@@ -52,9 +52,12 @@
 
 <style scoped>
 	.account {
-		margin: 0.5em 0;
 		display: flex;
 		align-items: center;
+	}
+
+	.account:not(:last-child) {
+		margin-bottom: 0.5em;
 	}
 
 	.link {
@@ -62,6 +65,6 @@
 	}
 
 	.container {
-		margin: 1em 0;
+		margin-bottom: 1em;
 	}
 </style>

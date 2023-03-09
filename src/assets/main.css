@@ -12,3 +12,10 @@ fieldset {
 	border-radius: 2px;
 	margin: 0;
 }
+
+footer {
+	border-top: 1px solid #888;
+	padding-top: 0.5rem;
+	margin-top: 1em;
+	font-size: 0.9em;
+}

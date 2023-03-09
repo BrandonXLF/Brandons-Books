@@ -8,6 +8,7 @@ import LedgerListView from '@/views/LedgerListView.vue';
 import BalanceSheetView from '@/views/BalanceSheetView.vue';
 import IncomeStatementView from '@/views/IncomeStatementView.vue';
 import BookNav from '@/components/BookNav.vue';
+import AboutFooter from '@/components/AboutFooter.vue';
 import BookError from '@/components/BookError.vue';
 import { useBookStore } from '@/stores/books';
 
@@ -26,7 +27,8 @@ const router = createRouter({
 			name: 'booklist',
 			component: BookListView,
 			meta: {
-				title: 'Books'
+				title: 'Books',
+				footer: AboutFooter
 			}
 		},
 		{
@@ -46,6 +48,7 @@ const router = createRouter({
 				if (!books.byNumber(book)) {
 					to.meta.title = 'Error';
 					to.meta.error = BookError;
+					delete to.meta.header;
 				}
 
 				return true;

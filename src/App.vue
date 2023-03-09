@@ -9,15 +9,15 @@
 	<header>
 		<Nav>
 			<Logo />
-			<component
-				v-if="!$route.meta.error && $route.meta.header"
-				:is="$route.meta.header"
-			/>
+			<component :is="$route.meta.header" />
 		</Nav>
+		<Title v-if="!$route.meta.error" :text="$route.meta.title as string" />
 	</header>
-	<component v-if="$route.meta.error" :is="$route.meta.error" />
-	<template v-else>
-		<Title :text="$route.meta.title as string" />
-		<RouterView />
-	</template>
+	<main>
+		<RouterView v-if="!$route.meta.error" />
+		<component :is="$route.meta.error" />
+	</main>
+	<footer v-if="$route.meta.footer">
+		<component :is="$route.meta.footer" />
+	</footer>
 </template>

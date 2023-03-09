@@ -13,7 +13,7 @@
 </script>
 
 <template>
-	<div class="container">
+	<div class="books">
 		<div v-for="book in books.books" :key="book.number" class="book">
 			<RouterLink
 				:to="{ name: 'book', params: { book: book.number } }"
@@ -40,7 +40,7 @@
 			<DownloadButton @click="FileStorage.downloadBook(book.number)" />
 		</div>
 	</div>
-	<div class="container">
+	<div>
 		<ActionPopup
 			:type="AddBook"
 			toggleText="Create Book"
@@ -49,25 +49,23 @@
 		/>
 		<button @click="FileStorage.uploadBook()">Upload Book</button>
 	</div>
-	<hr class="container" />
-	<footer>
-		Online bookkeeping program by
-		<a href="https://www.brandonfowler.me/">Brandon Fowler</a>.
-	</footer>
 </template>
 
 <style scoped>
 	.book {
-		margin: 0.5em 0;
 		display: flex;
 		align-items: center;
+	}
+
+	.book:not(:last-child) {
+		margin-bottom: 0.5em;
 	}
 
 	.link {
 		margin-right: 0.5em;
 	}
 
-	.container {
+	.books {
 		margin-bottom: 1em;
 	}
 

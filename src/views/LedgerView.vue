@@ -20,9 +20,9 @@
 
 <template>
 	<div v-if="account === undefined">Account does not exist.</div>
-	<div v-else :id="account.userNumber">
-		<div class="title">
-			<h2>{{ account.name }} &nbsp; No. {{ account.userNumber }}</h2>
+	<article v-else>
+		<header class="title">
+			<h2>{{ account.name }} - No. {{ account.userNumber }}</h2>
 			<ActionPopup
 				:type="DeleteAccount"
 				:number="account.number"
@@ -39,8 +39,7 @@
 			>
 				<EditButton />
 			</ActionPopup>
-		</div>
-
+		</header>
 		<div class="table ledger">
 			<div class="header">Date</div>
 			<div class="header">Particulars</div>
@@ -58,7 +57,7 @@
 				:key="index"
 			/>
 		</div>
-	</div>
+	</article>
 </template>
 
 <style scoped>
