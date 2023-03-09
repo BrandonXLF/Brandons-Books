@@ -8,6 +8,7 @@
 	import AddEntry from '@/components/AddEntry.vue';
 	import DeleteButton from '@/components/DeleteButton.vue';
 	import EditButton from '@/components/EditButton.vue';
+	import { accountTypes } from '@/data/accountTypes';
 
 	defineProps<{
 		transaction: TransactionData;
@@ -15,10 +16,20 @@
 
 	const accounts = useAccountStore();
 	const book = parseInt(useRoute().params.book as string);
+
+	const sortedChanges = transaction.changes.sort((a, b) => {
+		const accA = accounts.byNumber(a.account);
+		const accB = accounts.byNumber(b.account);
+
+		return (accountTypes[accB.type].multiplier - accountTypes[accA.type].multiplier) 
+			|| (accA.userNumber > accB.userNumber && 1) 
+			|| (accA.userNumber < accB.userNumber && -1)
+			|| 0;
+	});
 </script>
 
 <template>
-	<template v-for="(change, index) in transaction.changes" :key="index">
+	<template v-for="(change, index) in sortedChanges" :key="index">
 		<div>
 			<ActionPopup
 				v-if="index === 0"
