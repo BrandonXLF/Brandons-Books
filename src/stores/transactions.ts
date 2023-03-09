@@ -131,6 +131,8 @@ export const useTransactionStore = defineStore('transactions', () => {
 
 		index = index == -1 ? transactionsInBook.length : index;
 
+		data.changes.sort((a, b) => Math.sign(b.amount) - Math.sign(a.amount));
+
 		transactions.value.splice(index, 0, { ...data, number });
 	}
 
