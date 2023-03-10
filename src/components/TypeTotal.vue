@@ -1,11 +1,16 @@
 <script setup lang="ts">
-	import { AccountType, accountTypes } from '@/data/accountTypes';
+	import {
+		AccountType,
+		accountTypes,
+		incomeAccountTypes,
+		incomeParentType
+	} from '@/data/accountTypes';
 	import { useTransactionStore, type TimeRange } from '@/stores/transactions';
 	import Figure from '@/components/Figure.vue';
 
 	const props = defineProps<{
 		book: number;
-		type: number | number[];
+		type: AccountType | AccountType[];
 		name: string;
 		timeRange?: TimeRange;
 		valueClass?: string;
@@ -14,9 +19,9 @@
 	}>();
 
 	const transactions = useTransactionStore();
-	const types: AccountType[] = Array.isArray(props.type)
-		? props.type
-		: [props.type];
+	const types = typeof props.type === 'number' ? [props.type] : props.type;
+
+	if (types.includes(incomeParentType)) types.push(...incomeAccountTypes);
 </script>
 
 <template>
@@ -24,7 +29,7 @@
 	<div v-if="threeColEmpty === 2"></div>
 	<div :class="`value ${valueClass}`">
 		<Figure
-			:value="transactions.getTotalForAccountTypes(book, types, timeRange)"
+			:value="transactions.getTotalForAccountType(book, types, timeRange)"
 			:multiplier="accountTypes[types[0]].multiplier"
 		/>
 	</div>

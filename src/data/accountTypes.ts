@@ -10,7 +10,6 @@ export type AccountTypeInfo = {
 	type: AccountType;
 	name: string;
 	multiplier: -1 | 1;
-	netIncome?: string;
 };
 
 export const accountTypes: { [key in AccountType]: AccountTypeInfo } = {
@@ -27,8 +26,7 @@ export const accountTypes: { [key in AccountType]: AccountTypeInfo } = {
 	[AccountType.Equity]: {
 		type: AccountType.Equity,
 		name: 'Equity',
-		multiplier: -1,
-		netIncome: 'Retained Earnings'
+		multiplier: -1
 	},
 	[AccountType.Revenue]: {
 		type: AccountType.Revenue,
@@ -42,4 +40,5 @@ export const accountTypes: { [key in AccountType]: AccountTypeInfo } = {
 	}
 };
 
+export const incomeParentType = AccountType.Equity;
 export const incomeAccountTypes = [AccountType.Revenue, AccountType.Expense];

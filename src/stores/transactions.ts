@@ -108,13 +108,15 @@ export const useTransactionStore = defineStore('transactions', () => {
 		return total;
 	}
 
-	function getTotalForAccountTypes(
+	function getTotalForAccountType(
 		book: number,
-		types: AccountType[],
+		types: AccountType | AccountType[],
 		timeRange?: TimeRange
 	) {
 		let total = 0;
 		const accountStore = useAccountStore();
+
+		if (typeof types === 'number') types = [types];
 
 		for (const [_, change] of iterateChanges(book, timeRange)) {
 			const type = accountStore.byNumber(book, change.account)!.type;
@@ -125,14 +127,6 @@ export const useTransactionStore = defineStore('transactions', () => {
 		}
 
 		return total;
-	}
-
-	function getTotalForAccountType(
-		book: number,
-		type: AccountType,
-		timeRange?: TimeRange
-	) {
-		return getTotalForAccountTypes(book, [type], timeRange);
 	}
 
 	function addTransaction(
@@ -174,7 +168,6 @@ export const useTransactionStore = defineStore('transactions', () => {
 		byNumber,
 		getChangesForAccount,
 		getTotalForAccount,
-		getTotalForAccountTypes,
 		getTotalForAccountType,
 		addTransaction,
 		removeTransaction,

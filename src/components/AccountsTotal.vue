@@ -1,7 +1,7 @@
 <script setup lang="ts">
 	import {
-		accountTypes,
 		AccountType,
+		incomeParentType,
 		incomeAccountTypes
 	} from '@/data/accountTypes';
 	import { useAccountStore } from '@/stores/accounts';
@@ -19,7 +19,7 @@
 	const accounts = useAccountStore();
 	const transactions = useTransactionStore();
 	const accountsOfType = accounts.byType(props.book, props.type);
-	const netIncome = accountTypes[props.type].netIncome;
+	const includeIncome = props.type == incomeParentType;
 </script>
 
 <template>
@@ -28,7 +28,7 @@
 		<div v-if="threeColEmpty === 2"></div>
 		<div
 			:class="`value ${
-				!netIncome && index == accountsOfType.length - 1 ? 'pre-total' : ''
+				!includeIncome && index == accountsOfType.length - 1 ? 'pre-total' : ''
 			}`"
 		>
 			<Figure
@@ -41,11 +41,11 @@
 		<div v-if="threeColEmpty === 3"></div>
 	</template>
 	<TypeTotal
-		v-if="accountTypes[type].netIncome"
+		v-if="includeIncome"
 		valueClass="pre-total"
 		:book="book"
 		:type="incomeAccountTypes"
-		:name="accountTypes[type].netIncome as string"
+		name="Retained Earnings"
 		:time-range="timeRange"
 	/>
 </template>

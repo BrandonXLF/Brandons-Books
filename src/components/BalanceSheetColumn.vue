@@ -2,6 +2,7 @@
 	import {
 		AccountType,
 		accountTypes,
+		incomeParentType,
 		incomeAccountTypes
 	} from '@/data/accountTypes';
 	import { useRoute } from 'vue-router';
@@ -32,7 +33,7 @@
 				:valueClass="index === typeInfos.length - 1 ? 'pre-total' : ''"
 				:book="book"
 				:type="
-					accountType.netIncome
+					accountType.type === incomeParentType
 						? [...incomeAccountTypes, accountType.type]
 						: accountType.type
 				"
