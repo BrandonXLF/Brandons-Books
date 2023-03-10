@@ -22,6 +22,11 @@ export interface TransactionData {
 	changes: AccountChange[];
 }
 
+export interface TimeRange {
+	start?: Date;
+	end?: Date;
+}
+
 export const useTransactionStore = defineStore('transactions', () => {
 	const transactions = ref<TransactionData[]>(
 		JSON.parse(localStorage.getItem('transactions') || '[]')
@@ -48,10 +53,14 @@ export const useTransactionStore = defineStore('transactions', () => {
 
 	function* iterateChanges(
 		book: number,
-		date?: Date
+		timeRange?: TimeRange
 	): Generator<[TransactionData, AccountChange]> {
 		for (const transaction of byBook(book)) {
-			if (date && transaction.date > date) continue;
+			if (
+				(timeRange?.end && transaction.date > timeRange?.end) ||
+				(timeRange?.start && transaction.date < timeRange?.start)
+			)
+				continue;
 
 			for (const change of transaction.changes) {
 				yield [transaction, change];
@@ -59,12 +68,16 @@ export const useTransactionStore = defineStore('transactions', () => {
 		}
 	}
 
-	function getChangesForAccount(book: number, account: number, date?: Date) {
+	function getChangesForAccount(
+		book: number,
+		account: number,
+		timeRange?: TimeRange
+	) {
 		const changes: DatedChange[] = [];
 
 		let total = 0;
 
-		for (const [transaction, change] of iterateChanges(book, date)) {
+		for (const [transaction, change] of iterateChanges(book, timeRange)) {
 			if (change.account !== account) continue;
 
 			total += change.amount;
@@ -79,10 +92,14 @@ export const useTransactionStore = defineStore('transactions', () => {
 		return changes;
 	}
 
-	function getTotalForAccount(book: number, account: number, date?: Date) {
+	function getTotalForAccount(
+		book: number,
+		account: number,
+		timeRange?: TimeRange
+	) {
 		let total = 0;
 
-		for (const [_, change] of iterateChanges(book, date)) {
+		for (const [_, change] of iterateChanges(book, timeRange)) {
 			if (change.account !== account) continue;
 
 			total += change.amount;
@@ -94,12 +111,12 @@ export const useTransactionStore = defineStore('transactions', () => {
 	function getTotalForAccountTypes(
 		book: number,
 		types: AccountType[],
-		date?: Date
+		timeRange?: TimeRange
 	) {
 		let total = 0;
 		const accountStore = useAccountStore();
 
-		for (const [_, change] of iterateChanges(book, date)) {
+		for (const [_, change] of iterateChanges(book, timeRange)) {
 			const type = accountStore.byNumber(book, change.account)!.type;
 
 			if (!types.includes(type)) continue;
@@ -113,9 +130,9 @@ export const useTransactionStore = defineStore('transactions', () => {
 	function getTotalForAccountType(
 		book: number,
 		type: AccountType,
-		date?: Date
+		timeRange?: TimeRange
 	) {
-		return getTotalForAccountTypes(book, [type], date);
+		return getTotalForAccountTypes(book, [type], timeRange);
 	}
 
 	function addTransaction(

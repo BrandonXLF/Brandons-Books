@@ -1,13 +1,13 @@
 <script setup lang="ts">
 	import { AccountType, accountTypes } from '@/data/accountTypes';
-	import { useTransactionStore } from '@/stores/transactions';
+	import { useTransactionStore, type TimeRange } from '@/stores/transactions';
 	import Figure from '@/components/Figure.vue';
 
 	const props = defineProps<{
 		book: number;
 		type: number | number[];
 		name: string;
-		date?: Date;
+		timeRange?: TimeRange;
 		valueClass?: string;
 		totalDepth?: number;
 		threeColEmpty?: number;
@@ -24,7 +24,7 @@
 	<div v-if="threeColEmpty === 2"></div>
 	<div :class="`value ${valueClass}`">
 		<Figure
-			:value="transactions.getTotalForAccountTypes(book, types, date)"
+			:value="transactions.getTotalForAccountTypes(book, types, timeRange)"
 			:multiplier="accountTypes[types[0]].multiplier"
 		/>
 	</div>

@@ -2,18 +2,19 @@
 	import BalanceSheetColumn from '@/components/BalanceSheetColumn.vue';
 	import TopDate from '@/components/TopDate.vue';
 	import { AccountType } from '@/data/accountTypes';
+	import type { TimeRange } from '@/stores/transactions';
 	import { ref } from 'vue';
 
-	const date = ref<Date | undefined>(new Date());
+	const timeRange = ref<TimeRange>({});
 </script>
 
 <template>
-	<TopDate v-model="date" />
+	<TopDate v-model="timeRange.end" />
 	<div class="balance-sheets">
-		<BalanceSheetColumn :types="[AccountType.Asset]" :date="date" />
+		<BalanceSheetColumn :types="[AccountType.Asset]" :time-range="timeRange" />
 		<BalanceSheetColumn
 			:types="[AccountType.Liability, AccountType.Equity]"
-			:date="date"
+			:time-range="timeRange"
 		/>
 	</div>
 </template>

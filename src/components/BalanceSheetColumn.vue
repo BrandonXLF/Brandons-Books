@@ -7,10 +7,11 @@
 	import { useRoute } from 'vue-router';
 	import AccountsTotal from '@/components/AccountsTotal.vue';
 	import TypeTotal from '@/components/TypeTotal.vue';
+	import type { TimeRange } from '@/stores/transactions';
 
 	const props = defineProps<{
 		types: AccountType[];
-		date?: Date;
+		timeRange: TimeRange;
 	}>();
 
 	const book = parseInt(useRoute().params.book as string);
@@ -21,7 +22,11 @@
 	<div class="table balance-sheet">
 		<template v-for="(accountType, index) in typeInfos" :key="accountType.name">
 			<h2>{{ accountType.name }}</h2>
-			<AccountsTotal :book="book" :type="accountType.type" :date="date" />
+			<AccountsTotal
+				:book="book"
+				:type="accountType.type"
+				:time-range="timeRange"
+			/>
 			<TypeTotal
 				v-if="typeInfos.length > 1"
 				:valueClass="index === typeInfos.length - 1 ? 'pre-total' : ''"
@@ -32,7 +37,7 @@
 						: accountType.type
 				"
 				:name="`Total ${accountType.name}`"
-				:date="date"
+				:time-range="timeRange"
 				:totalDepth="1"
 			/>
 		</template>
@@ -43,7 +48,7 @@
 			:name="`Total ${typeInfos
 				.map(accountType => accountType.name)
 				.join(' and ')}`"
-			:date="date"
+			:time-range="timeRange"
 			:totalDepth="typeInfos.length > 1 ? 2 : 1"
 		/>
 	</div>

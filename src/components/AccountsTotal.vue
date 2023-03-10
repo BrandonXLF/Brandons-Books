@@ -5,14 +5,14 @@
 		incomeAccountTypes
 	} from '@/data/accountTypes';
 	import { useAccountStore } from '@/stores/accounts';
-	import { useTransactionStore } from '@/stores/transactions';
+	import { useTransactionStore, type TimeRange } from '@/stores/transactions';
 	import Figure from '@/components/Figure.vue';
 	import TypeTotal from './TypeTotal.vue';
 
 	const props = defineProps<{
 		book: number;
 		type: AccountType;
-		date?: Date;
+		timeRange?: TimeRange;
 		threeColEmpty?: number;
 	}>();
 
@@ -32,7 +32,9 @@
 			}`"
 		>
 			<Figure
-				:value="transactions.getTotalForAccount(book, account.number, date)"
+				:value="
+					transactions.getTotalForAccount(book, account.number, timeRange)
+				"
 				:accountType="account.type"
 			/>
 		</div>
@@ -44,6 +46,6 @@
 		:book="book"
 		:type="incomeAccountTypes"
 		:name="accountTypes[type].netIncome as string"
-		:date="date"
+		:time-range="timeRange"
 	/>
 </template>
