@@ -9,7 +9,7 @@
 
 	const book = parseInt(useRoute().params.book as string);
 	const range = ref<TimeRange>({});
-	const startDateText = ref<string>('last-30');
+	const startDateText = ref<string>('');
 
 	function updateStartDate() {
 		const value = startDateText.value;
