@@ -2,17 +2,19 @@
 	import type { Component } from 'vue';
 	import { ref } from 'vue';
 
-	defineProps<{
+	const props = defineProps<{
 		toggleText?: string;
 		titleText: string;
 		submitText: string;
 		type: Component;
 		number?: number;
+		destructive?: boolean;
 	}>();
 
 	const showPopup = ref(false);
 	const error = ref('');
 	const child = ref<Component & { submit: () => void }>();
+	const buttonClass = props.destructive ? 'destructive' : 'progressive';
 
 	function togglePopup() {
 		showPopup.value = !showPopup.value;
@@ -27,7 +29,7 @@
 <template>
 	<span @click="togglePopup" class="toggle">
 		<slot>
-			<button>{{ toggleText }}</button>
+			<button :class="buttonClass">{{ toggleText }}</button>
 		</slot>
 	</span>
 	<div v-if="showPopup" class="background">
@@ -47,10 +49,10 @@
 				<div v-if="error" class="error">Error: {{ error }}</div>
 			</div>
 			<footer>
-				<button @click="child?.submit()">
+				<button @click="child?.submit()" :class="buttonClass">
 					{{ submitText }}
 				</button>
-				<button @click="togglePopup">Close</button>
+				<button @click="togglePopup">Cancel</button>
 			</footer>
 		</div>
 	</div>
@@ -85,9 +87,9 @@
 		min-height: 25vh;
 		border: 1px solid #999;
 		padding: 0.5em;
-		border-radius: 3px;
+		border-radius: 4px;
 		flex-direction: column;
-		box-shadow: 2px 1px 4px 0 rgba(0, 0, 0, 0.25);
+		box-shadow: 2px 1px 4px 0 rgba(0, 0, 0, 0.1);
 	}
 
 	header {

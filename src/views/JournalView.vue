@@ -11,8 +11,7 @@
 
 <template>
 	<div class="table journal">
-		<div></div>
-		<div class="header">Date</div>
+		<div class="header" style="grid-column: 1 / span 2">Date</div>
 		<div class="header">Particulars</div>
 		<div class="header">P.R.</div>
 		<div class="header value">Debit</div>

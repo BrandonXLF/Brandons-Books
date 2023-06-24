@@ -1,5 +1,6 @@
 body {
 	font-family: sans-serif;
+	margin: 1em;
 }
 
 h1,
@@ -18,4 +19,29 @@ footer {
 	padding-top: 0.5rem;
 	margin-top: 1em;
 	font-size: 0.9em;
+}
+
+input,
+select {
+	border: none;
+	border-bottom: 1px solid #888;
+}
+
+button {
+	border: none;
+	background: #dddddd;
+	color: black;
+	padding: 0.5em 0.75em;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+button.progressive {
+	background: #548ae5;
+	color: white;
+}
+
+button.destructive {
+	background: #d40d0d;
+	color: white;
 }

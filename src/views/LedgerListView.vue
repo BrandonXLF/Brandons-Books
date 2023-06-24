@@ -29,6 +29,7 @@
 				:number="account.number"
 				titleText="Delete Account"
 				submitText="Delete"
+				destructive
 			>
 				<DeleteButton />
 			</ActionPopup>
@@ -54,6 +55,7 @@
 	.account {
 		display: flex;
 		align-items: center;
+		padding: 0.25em 0;
 	}
 
 	.account:not(:last-child) {

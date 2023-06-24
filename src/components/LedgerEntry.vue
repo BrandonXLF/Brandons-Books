@@ -11,32 +11,26 @@
 </script>
 
 <template>
-	<div>
+	<div class="start border">
 		{{ change.date.getUTCFullYear() }}-{{
 			(change.date.getUTCMonth() + 1).toString().padStart(2, '0')
 		}}-{{ change.date.getUTCDate().toString().padStart(2, '0') }}
 	</div>
-	<div></div>
-	<div>
+	<div class="border"></div>
+	<div class="border">
 		<RouterLink :to="{ name: 'journal', params: { book } }">J1</RouterLink>
 	</div>
-	<div class="value">
+	<div class="value border">
 		<Figure v-if="change.amount > 0" :value="change.amount" />
 	</div>
-	<div class="value">
+	<div class="value border">
 		<Figure v-if="change.amount < 0" :value="-change.amount" />
 	</div>
-	<div class="dr-cr">
+	<div class="border">
 		<template v-if="change.total >= 0">Dr</template>
 		<template v-else>Cr</template>
 	</div>
-	<div class="value">
+	<div class="value border end">
 		<Figure :value="Math.abs(change.total)" />
 	</div>
 </template>
-
-<style scoped>
-	.dr-cr {
-		margin-left: 1em;
-	}
-</style>

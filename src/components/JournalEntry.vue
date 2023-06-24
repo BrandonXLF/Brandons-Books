@@ -19,13 +19,14 @@
 
 <template>
 	<template v-for="(change, index) in transaction.changes" :key="index">
-		<div>
+		<div class="start">
 			<ActionPopup
 				v-if="index === 0"
 				:type="DeleteEntry"
 				:number="transaction.number"
 				titleText="Delete Transaction"
 				submitText="Delete"
+				destructive
 			>
 				<DeleteButton />
 			</ActionPopup>
@@ -62,30 +63,22 @@
 		<div class="value">
 			<Figure v-if="change.amount > 0" :value="change.amount" />
 		</div>
-		<div class="value">
+		<div class="value end">
 			<Figure v-if="change.amount < 0" :value="-change.amount" />
 		</div>
 	</template>
-	<div></div>
-	<div></div>
-	<div class="summary">
+	<div class="border start"></div>
+	<div class="border"></div>
+	<div class="summary border">
 		{{ transaction.summary }}
 	</div>
-	<div></div>
-	<div></div>
-	<div></div>
+	<div class="border"></div>
+	<div class="border"></div>
+	<div class="border end"></div>
 </template>
 
 <style scoped>
 	.summary {
 		font-style: italic;
-	}
-
-	.summary:not(:nth-last-child(4)) {
-		padding-bottom: 1em;
-	}
-
-	.credit {
-		padding-left: 0.75em;
 	}
 </style>

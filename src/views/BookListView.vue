@@ -26,6 +26,7 @@
 				:number="book.number"
 				titleText="Delete Book"
 				submitText="Delete"
+				destructive
 			>
 				<DeleteButton />
 			</ActionPopup>
@@ -55,6 +56,7 @@
 	.book {
 		display: flex;
 		align-items: center;
+		padding: 0.25em 0;
 	}
 
 	.book:not(:last-child) {

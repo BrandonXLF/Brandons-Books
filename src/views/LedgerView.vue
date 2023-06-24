@@ -28,6 +28,7 @@
 				:number="account.number"
 				titleText="Delete Account"
 				submitText="Delete"
+				destructive
 			>
 				<DeleteButton />
 			</ActionPopup>
@@ -41,13 +42,13 @@
 			</ActionPopup>
 		</header>
 		<div class="table ledger">
-			<div class="header">Date</div>
+			<div class="header start">Date</div>
 			<div class="header">Particulars</div>
 			<div class="header">P.R.</div>
 			<div class="header value">Debit</div>
 			<div class="header value">Credit</div>
 			<div class="header"></div>
-			<div class="header value">Balance</div>
+			<div class="header value end">Balance</div>
 			<LedgerEntry
 				v-for="(change, index) in transactions.getChangesForAccount(
 					book,
