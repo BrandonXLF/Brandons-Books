@@ -63,6 +63,12 @@
 		display: inline-flex;
 	}
 
+	.popup-main {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5em;
+	}
+
 	.error {
 		margin: 0.5em 0;
 		color: rgb(150, 6, 6);
@@ -85,8 +91,7 @@
 		background: #fff;
 		min-width: 25vw;
 		min-height: 25vh;
-		border: 1px solid #999;
-		padding: 0.5em;
+		border: 1px solid var(--border-color);
 		border-radius: 4px;
 		flex-direction: column;
 		box-shadow: 2px 1px 4px 0 rgba(0, 0, 0, 0.1);
@@ -95,6 +100,8 @@
 	header {
 		display: flex;
 		margin-bottom: 0.5em;
+		padding: 1.25em;
+		padding-bottom: 0;
 	}
 
 	.title {
@@ -111,13 +118,18 @@
 
 	.popup-main {
 		flex: 1;
+		padding: 0 1.25em;
+		padding-bottom: 1.25em;
 	}
 
 	footer {
-		margin-top: 0.5em;
+		padding: 1.25em;
+		background: var(--secondary-bg);
+		border-radius: 0 0 4px 4px;
+		border-top: 1px solid var(--border-color);
 	}
 
 	footer > *:not(:last-child) {
-		margin-right: 0.5em;
+		margin-right: 1em;
 	}
 </style>
