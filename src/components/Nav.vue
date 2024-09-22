@@ -5,9 +5,11 @@
 </template>
 
 <style scoped>
-	nav > :deep(*) {
-		margin: 0 0.5em 0.5em 0;
-		display: inline-block;
-		vertical-align: middle;
+	nav {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.5em;
+		background: var(--secondary-bg);
 	}
 </style>
