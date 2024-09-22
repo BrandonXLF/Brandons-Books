@@ -15,6 +15,10 @@ h1,
 	font-family: serif;
 }
 
+a {
+	color: var(--dark-accent);
+}
+
 fieldset {
 	border: 1px solid var(--border-color);
 	border-radius: 2px;
