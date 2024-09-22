@@ -8,6 +8,7 @@
 	import DownloadButton from '@/components/DownloadButton.vue';
 	import { RouterLink } from 'vue-router';
 	import FileStorage from '@/helpers/FileStorage';
+	import Actions from '@/components/Actions.vue';
 
 	const books = useBookStore();
 </script>
@@ -21,24 +22,26 @@
 			>
 				{{ book.name }}
 			</RouterLink>
-			<ActionPopup
-				:type="DeleteBook"
-				:number="book.number"
-				titleText="Delete Book"
-				submitText="Delete"
-				destructive
-			>
-				<DeleteButton />
-			</ActionPopup>
-			<ActionPopup
-				:type="AddBook"
-				:number="book.number"
-				titleText="Edit Book"
-				submitText="Save"
-			>
-				<EditButton />
-			</ActionPopup>
-			<DownloadButton @click="FileStorage.downloadBook(book.number)" />
+			<Actions>
+				<ActionPopup
+					:type="DeleteBook"
+					:number="book.number"
+					titleText="Delete Book"
+					submitText="Delete"
+					destructive
+				>
+					<DeleteButton />
+				</ActionPopup>
+				<ActionPopup
+					:type="AddBook"
+					:number="book.number"
+					titleText="Edit Book"
+					submitText="Save"
+				>
+					<EditButton />
+				</ActionPopup>
+				<DownloadButton @click="FileStorage.downloadBook(book.number)" />
+			</Actions>
 		</div>
 	</div>
 	<div>
@@ -64,7 +67,7 @@
 	}
 
 	.link {
-		margin-right: 0.5em;
+		margin-right: 1em;
 	}
 
 	.books {

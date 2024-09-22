@@ -9,7 +9,6 @@
 		padding: 0;
 		margin: 0;
 		background: none;
-		margin-left: 0.5em;
 		font: inherit;
 	}
 

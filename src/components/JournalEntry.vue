@@ -8,6 +8,7 @@
 	import AddEntry from '@/components/AddEntry.vue';
 	import DeleteButton from '@/components/DeleteButton.vue';
 	import EditButton from '@/components/EditButton.vue';
+	import Actions from './Actions.vue';
 
 	defineProps<{
 		transaction: TransactionData;
@@ -20,25 +21,27 @@
 <template>
 	<template v-for="(change, index) in transaction.changes" :key="index">
 		<div class="start">
-			<ActionPopup
-				v-if="index === 0"
-				:type="DeleteEntry"
-				:number="transaction.number"
-				titleText="Delete Transaction"
-				submitText="Delete"
-				destructive
-			>
-				<DeleteButton />
-			</ActionPopup>
-			<ActionPopup
-				v-if="index === 0"
-				:type="AddEntry"
-				:number="transaction.number"
-				titleText="Edit Transaction"
-				submitText="Save"
-			>
-				<EditButton />
-			</ActionPopup>
+			<Actions>
+				<ActionPopup
+					v-if="index === 0"
+					:type="DeleteEntry"
+					:number="transaction.number"
+					titleText="Delete Transaction"
+					submitText="Delete"
+					destructive
+				>
+					<DeleteButton />
+				</ActionPopup>
+				<ActionPopup
+					v-if="index === 0"
+					:type="AddEntry"
+					:number="transaction.number"
+					titleText="Edit Transaction"
+					submitText="Save"
+				>
+					<EditButton />
+				</ActionPopup>
+			</Actions>
 		</div>
 		<div>
 			<template v-if="index === 0">

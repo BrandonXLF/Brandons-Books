@@ -8,6 +8,7 @@
 	import EditButton from '@/components/EditButton.vue';
 	import DeleteButton from '@/components/DeleteButton.vue';
 	import LedgerEntry from '@/components/LedgerEntry.vue';
+	import Actions from '@/components/Actions.vue';
 
 	const transactions = useTransactionStore();
 	const accounts = useAccountStore();
@@ -23,23 +24,25 @@
 	<article v-else>
 		<header class="title">
 			<h2>{{ account.name }} - No. {{ account.userNumber }}</h2>
-			<ActionPopup
-				:type="DeleteAccount"
-				:number="account.number"
-				titleText="Delete Account"
-				submitText="Delete"
-				destructive
-			>
-				<DeleteButton />
-			</ActionPopup>
-			<ActionPopup
-				:type="AddAccount"
-				:number="account.number"
-				titleText="Edit Account"
-				submitText="Save"
-			>
-				<EditButton />
-			</ActionPopup>
+			<Actions>
+				<ActionPopup
+					:type="DeleteAccount"
+					:number="account.number"
+					titleText="Delete Account"
+					submitText="Delete"
+					destructive
+				>
+					<DeleteButton />
+				</ActionPopup>
+				<ActionPopup
+					:type="AddAccount"
+					:number="account.number"
+					titleText="Edit Account"
+					submitText="Save"
+				>
+					<EditButton />
+				</ActionPopup>
+			</Actions>
 		</header>
 		<div class="table ledger">
 			<div class="header start">Date</div>
@@ -71,7 +74,7 @@
 	}
 
 	.title h2 {
-		margin: 0 0.25em 0 0;
+		margin: 0 1rem 0 0;
 	}
 
 	.ledger {

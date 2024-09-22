@@ -6,6 +6,7 @@
 	import EditButton from '@/components/EditButton.vue';
 	import DeleteAccount from '@/components/DeleteAccount.vue';
 	import AddAccount from '@/components/AddAccount.vue';
+import Actions from '@/components/Actions.vue';
 
 	const accounts = useAccountStore();
 	const book = parseInt(useRoute().params.book as string);
@@ -24,23 +25,25 @@
 			>
 				{{ account.name }} #{{ account.userNumber }}
 			</RouterLink>
-			<ActionPopup
-				:type="DeleteAccount"
-				:number="account.number"
-				titleText="Delete Account"
-				submitText="Delete"
-				destructive
-			>
-				<DeleteButton />
-			</ActionPopup>
-			<ActionPopup
-				:type="AddAccount"
-				:number="account.number"
-				titleText="Edit Account"
-				submitText="Save"
-			>
-				<EditButton />
-			</ActionPopup>
+			<Actions>
+				<ActionPopup
+					:type="DeleteAccount"
+					:number="account.number"
+					titleText="Delete Account"
+					submitText="Delete"
+					destructive
+				>
+					<DeleteButton />
+				</ActionPopup>
+				<ActionPopup
+					:type="AddAccount"
+					:number="account.number"
+					titleText="Edit Account"
+					submitText="Save"
+				>
+					<EditButton />
+				</ActionPopup>
+			</Actions>
 		</div>
 	</div>
 	<ActionPopup
@@ -63,7 +66,7 @@
 	}
 
 	.link {
-		margin-right: 0.5em;
+		margin-right: 1em;
 	}
 
 	.container {
