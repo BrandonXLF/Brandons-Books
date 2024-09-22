@@ -48,7 +48,7 @@
 			titleText="Create Book"
 			submitText="Create"
 		/>
-		<button @click="FileStorage.uploadBook()">Upload Book</button>
+		<button class="upload" @click="FileStorage.uploadBook()">Upload Book</button>
 	</div>
 </template>
 
@@ -71,8 +71,7 @@
 		margin-bottom: 1em;
 	}
 
-	button,
-	:deep(button) {
-		margin-right: 0.5em;
+	.upload {
+		margin-left: 1em;
 	}
 </style>
