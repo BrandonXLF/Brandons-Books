@@ -6,6 +6,9 @@
 	import { useRoute } from 'vue-router';
 	import LabeledInput from '@/components/LabeledInput.vue';
 	import FigureInput from '@/components/FigureInput.vue';
+	import ActionPopup from '@/components/ActionPopup.vue';
+	import AddAccount from '@/components/AddAccount.vue';
+	import SVGButton from './SVGButton.vue';
 
 	const emit = defineEmits<{
 		(e: 'error', error: string): void;
@@ -102,6 +105,7 @@
 	<LabeledInput label="Summary" v-model:value.trim="summary" />
 	<fieldset>
 		<legend>Changes</legend>
+		<div v-if="!accounts.byBook(book).length">No accounts.</div>
 		<FigureInput
 			v-for="change in changes"
 			:key="change.account"
@@ -126,4 +130,13 @@
 			</select>
 		</LabeledInput>
 	</fieldset>
+	<div>
+		<ActionPopup
+			:type="AddAccount"
+			titleText="Create Account"
+			submitText="Create"
+		>
+			<SVGButton>+ Create Account</SVGButton>
+		</ActionPopup>
+	</div>
 </template>
