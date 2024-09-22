@@ -17,7 +17,7 @@
 	}
 
 	.title::first-letter {
-		background: #5e9aff;
+		background: var(--accent);
 		padding: 0.15em 0.35em;
 		color: white;
 		margin-right: 0.1em;
