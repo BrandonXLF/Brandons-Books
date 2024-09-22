@@ -1,3 +1,10 @@
+:root {
+	--secondary-bg: #f4f4f4;
+	--accent: #5e9aff;
+	--dark-accent: #1e68e7;
+	--border-color: #999;
+}
+
 body {
 	font-family: sans-serif;
 	margin: 1em;
