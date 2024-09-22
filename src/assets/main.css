@@ -16,22 +16,17 @@ h1,
 }
 
 fieldset {
-	border: 1px solid #888;
+	border: 1px solid var(--border-color);
 	border-radius: 2px;
 	margin: 0;
-}
-
-footer {
-	border-top: 1px solid #888;
-	padding-top: 0.5rem;
-	margin-top: 1em;
-	font-size: 0.9em;
 }
 
 input,
 select {
 	border: none;
-	border-bottom: 1px solid #888;
+	background: var(--secondary-bg);
+	border-bottom: 1px solid var(--border-color);
+	padding: 0.25em;
 }
 
 button {
@@ -44,7 +39,7 @@ button {
 }
 
 button.progressive {
-	background: #548ae5;
+	background: var(--accent);
 	color: white;
 }
 
