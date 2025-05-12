@@ -13,6 +13,7 @@
 		type: AccountType | AccountType[];
 		name: string;
 		timeRange?: TimeRange;
+		nameClass?: string;
 		valueClass?: string;
 		totalDepth?: number;
 		threeColEmpty?: number;
@@ -25,7 +26,7 @@
 </script>
 
 <template>
-	<div :class="`total-${totalDepth || 0}`">{{ name }}</div>
+	<div :class="`total-${totalDepth || 0} ${nameClass}`">{{ name }}</div>
 	<div v-if="threeColEmpty === 2"></div>
 	<div :class="`value ${valueClass}`">
 		<Figure

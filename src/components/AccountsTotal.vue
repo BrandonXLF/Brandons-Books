@@ -45,7 +45,8 @@
 		valueClass="pre-total"
 		:book="book"
 		:type="incomeAccountTypes"
-		name="Retained Earnings"
+		nameClass="italic"
+		name="Pending Retained Earnings"
 		:time-range="timeRange"
 	/>
 </template>
