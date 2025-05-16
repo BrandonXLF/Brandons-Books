@@ -15,7 +15,7 @@
 		timeRange: TimeRange;
 	}>();
 
-	const book = parseInt(useRoute().params.book as string);
+	const book = useRoute().params.book as UUID;
 	const typeInfos = props.types.map(type => accountTypes[type]);
 </script>
 

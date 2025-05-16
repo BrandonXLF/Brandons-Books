@@ -42,7 +42,7 @@ const router = createRouter({
 				header: BookNav
 			},
 			beforeEnter: to => {
-				const book = parseInt(to.params.book as string);
+				const book = to.params.book as UUID;
 				const books = useBookStore();
 
 				if (!books.byNumber(book)) {

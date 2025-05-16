@@ -5,15 +5,16 @@ import { useAccountStore } from '@/stores/accounts';
 import type { BookData } from '@/stores/books';
 import type { TransactionData } from '@/stores/transactions';
 import type { AccountData } from '@/stores/accounts';
+import parseObject from '@/helpers/parseObject';
 
 export default class FileStorage {
-	static downloadBook(book: number) {
+	static downloadBook(book: UUID) {
 		const transactions = useTransactionStore();
 		const books = useBookStore();
 		const accounts = useAccountStore();
 
 		const data = {
-			book: { ...books.byNumber(book), number: undefined },
+			book: books.byNumber(book)!,
 			accounts: accounts.byBook(book),
 			transactions: transactions.byBook(book)
 		};
@@ -58,10 +59,10 @@ export default class FileStorage {
 			transactions: transactionsData,
 			accounts: accountsData
 		}: {
-			book: Omit<BookData, 'number'>;
+			book: Omit<BookData, 'number'> & { number: UUID | undefined }; // Support old format
 			transactions: TransactionData[];
 			accounts: AccountData[];
-		} = JSON.parse(text);
+		} = parseObject(text);
 
 		const book = books.addBook(bookData);
 

@@ -9,7 +9,7 @@
 	import Figure from '@/components/Figure.vue';
 
 	const props = defineProps<{
-		book: number;
+		book: UUID;
 		type: AccountType | AccountType[];
 		name: string;
 		timeRange?: TimeRange;

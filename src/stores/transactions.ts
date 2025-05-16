@@ -2,10 +2,11 @@ import { defineStore } from 'pinia';
 import { useAccountStore } from '@/stores/accounts';
 import type { AccountType } from '@/data/accountTypes';
 import { ref, watch } from 'vue';
+import parseObject from '@/helpers/parseObject';
 
 export interface AccountChange {
+	account: UUID;
 	amount: number;
-	account: number;
 }
 
 export interface DatedChange {
@@ -15,8 +16,8 @@ export interface DatedChange {
 }
 
 export interface TransactionData {
-	number: number;
-	book: number;
+	number: UUID;
+	book: UUID;
 	date: Date;
 	summary: string;
 	changes: AccountChange[];
@@ -28,9 +29,7 @@ export interface TimeRange {
 }
 
 export const useTransactionStore = defineStore('transactions', () => {
-	const transactions = ref<TransactionData[]>(
-		JSON.parse(localStorage.getItem('transactions') || '[]')
-	);
+	const transactions = ref(parseObject<TransactionData[]>(localStorage.getItem('transactions') ?? '[]'));
 
 	transactions.value.forEach(transaction => {
 		transaction.date = new Date(transaction.date);
@@ -43,16 +42,16 @@ export const useTransactionStore = defineStore('transactions', () => {
 		{ deep: true }
 	);
 
-	function byBook(book: number) {
+	function byBook(book: UUID) {
 		return transactions.value.filter(transaction => transaction.book === book);
 	}
 
-	function byNumber(book: number, number: number) {
+	function byNumber(book: UUID, number: UUID) {
 		return byBook(book).find(transaction => transaction.number === number);
 	}
 
 	function* iterateChanges(
-		book: number,
+		book: UUID,
 		timeRange?: TimeRange
 	): Generator<[TransactionData, AccountChange]> {
 		for (const transaction of byBook(book)) {
@@ -69,8 +68,8 @@ export const useTransactionStore = defineStore('transactions', () => {
 	}
 
 	function getChangesForAccount(
-		book: number,
-		account: number,
+		book: UUID,
+		account: UUID,
 		timeRange?: TimeRange
 	) {
 		const changes: DatedChange[] = [];
@@ -93,8 +92,8 @@ export const useTransactionStore = defineStore('transactions', () => {
 	}
 
 	function getTotalForAccount(
-		book: number,
-		account: number,
+		book: UUID,
+		account: UUID,
 		timeRange?: TimeRange
 	) {
 		let total = 0;
@@ -109,7 +108,7 @@ export const useTransactionStore = defineStore('transactions', () => {
 	}
 
 	function getTotalForAccountType(
-		book: number,
+		book: UUID,
 		types: AccountType | AccountType[],
 		timeRange?: TimeRange
 	) {
@@ -130,14 +129,12 @@ export const useTransactionStore = defineStore('transactions', () => {
 	}
 
 	function addTransaction(
-		data: Omit<TransactionData, 'number'> & { number?: number }
+		data: Omit<TransactionData, 'number'> & { number?: UUID }
 	) {
 		if (data.number) removeTransaction(data.book, data.number);
 
 		const transactionsInBook = byBook(data.book);
-		const number =
-			data.number ||
-			Math.max(0, ...transactionsInBook.map(book => book.number)) + 1;
+		const number = data.number ?? crypto.randomUUID();
 
 		let index = transactionsInBook.findIndex(
 			transactions => transactions.date > data.date
@@ -150,13 +147,13 @@ export const useTransactionStore = defineStore('transactions', () => {
 		transactions.value.splice(index, 0, { ...data, number });
 	}
 
-	function removeTransaction(book: number, number: number) {
+	function removeTransaction(book: UUID, number: UUID) {
 		transactions.value = transactions.value.filter(
 			transaction => transaction.book !== book || transaction.number !== number
 		);
 	}
 
-	function removeByBook(book: number) {
+	function removeByBook(book: UUID) {
 		transactions.value = transactions.value.filter(
 			transaction => transaction.book !== book
 		);

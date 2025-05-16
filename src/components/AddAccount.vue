@@ -11,11 +11,11 @@
 	}>();
 
 	const props = defineProps<{
-		number?: number;
+		number?: UUID;
 	}>();
 
 	const accounts = useAccountStore();
-	const book = parseInt(useRoute().params.book as string);
+	const book = useRoute().params.book as UUID;
 
 	const account =
 		props.number === undefined

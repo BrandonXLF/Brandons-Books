@@ -16,12 +16,12 @@
 	}>();
 
 	const props = defineProps<{
-		number?: number;
+		number?: UUID;
 	}>();
 
 	const accounts = useAccountStore();
 	const transactions = useTransactionStore();
-	const book = parseInt(useRoute().params.book as string);
+	const book = useRoute().params.book as UUID;
 
 	const transaction =
 		props.number === undefined
@@ -43,7 +43,7 @@
 			.filter(account => !changedAccounts.includes(account.number));
 	});
 
-	const selectedAccount = ref<number>(unchangedAccounts.value[0]?.number);
+	const selectedAccount = ref<UUID>(unchangedAccounts.value[0]?.number);
 
 	const changesWithValue = computed(() =>
 		changes.value.filter(change => change.amount)
@@ -92,6 +92,8 @@
 	}
 
 	defineExpose({ submit });
+
+	// console.log(book, changes)
 </script>
 
 <template>
@@ -119,7 +121,7 @@
 			:flex="false"
 			@button="addChange"
 		>
-			<select v-model.number="selectedAccount">
+			<select v-model="selectedAccount">
 				<option
 					v-for="account in unchangedAccounts"
 					:key="account.number"

@@ -7,7 +7,7 @@
 		titleText: string;
 		submitText: string;
 		type: Component;
-		number?: number;
+		number?: UUID;
 		destructive?: boolean;
 	}>();
 

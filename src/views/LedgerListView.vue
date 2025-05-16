@@ -9,7 +9,7 @@
 import Actions from '@/components/Actions.vue';
 
 	const accounts = useAccountStore();
-	const book = parseInt(useRoute().params.book as string);
+	const book = useRoute().params.book as UUID;
 </script>
 
 <template>

@@ -10,7 +10,7 @@
 	import TypeTotal from './TypeTotal.vue';
 
 	const props = defineProps<{
-		book: number;
+		book: UUID;
 		type: AccountType;
 		timeRange?: TimeRange;
 		threeColEmpty?: number;

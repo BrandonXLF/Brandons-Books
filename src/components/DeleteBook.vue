@@ -9,7 +9,7 @@
 	}>();
 
 	const props = defineProps<{
-		number: number;
+		number: UUID;
 	}>();
 
 	const accounts = useAccountStore();

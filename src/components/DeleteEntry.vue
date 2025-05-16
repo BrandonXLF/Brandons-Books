@@ -8,11 +8,11 @@
 	}>();
 
 	const props = defineProps<{
-		number: number;
+		number: UUID;
 	}>();
 
 	const transactions = useTransactionStore();
-	const book = parseInt(useRoute().params.book as string);
+	const book = useRoute().params.book as UUID;
 
 	function submit() {
 		transactions.removeTransaction(book, props.number);

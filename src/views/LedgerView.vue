@@ -12,10 +12,10 @@
 
 	const transactions = useTransactionStore();
 	const accounts = useAccountStore();
-	const book = parseInt(useRoute().params.book as string);
+	const book = useRoute().params.book as UUID;
 	const account = accounts.byNumber(
 		book,
-		parseInt(useRoute().params.account as string)
+		useRoute().params.account as UUID
 	);
 </script>
 

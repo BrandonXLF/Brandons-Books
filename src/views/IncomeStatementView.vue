@@ -7,7 +7,7 @@
 	import AccountsTotal from '@/components/AccountsTotal.vue';
 	import type { TimeRange } from '@/stores/transactions';
 
-	const book = parseInt(useRoute().params.book as string);
+	const book = useRoute().params.book as UUID;
 	const range = ref<TimeRange>({});
 	const startDateText = ref<string>('');
 

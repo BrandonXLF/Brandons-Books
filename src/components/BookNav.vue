@@ -5,7 +5,7 @@
 	import FileStorage from '@/helpers/FileStorage';
 	import DownloadButton from '@/components/DownloadButton.vue';
 
-	const book = parseInt(useRoute().params.book as string);
+	const book = useRoute().params.book as UUID;
 	const books = useBookStore();
 	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	const name = books.byNumber(book)!.name;

@@ -6,7 +6,7 @@
 	import JournalEntry from '@/components/JournalEntry.vue';
 
 	const transactions = useTransactionStore();
-	const book = parseInt(useRoute().params.book as string);
+	const book = useRoute().params.book as UUID;
 </script>
 
 <template>
