@@ -42,10 +42,10 @@
 	</template>
 	<TypeTotal
 		v-if="includeIncome"
+		imaginary
 		valueClass="pre-total"
 		:book="book"
 		:type="incomeAccountTypes"
-		nameClass="italic"
 		name="Pending Retained Earnings"
 		:time-range="timeRange"
 	/>
