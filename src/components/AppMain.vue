@@ -11,6 +11,6 @@
 
 <style scoped>
 	main {
-		margin: 0 2em;
+		margin: 0 2em 1.5em;
 	}
 </style>
