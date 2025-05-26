@@ -92,8 +92,6 @@
 	}
 
 	defineExpose({ submit });
-
-	// console.log(book, changes)
 </script>
 
 <template>

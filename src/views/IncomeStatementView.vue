@@ -2,7 +2,7 @@
 	import { accountTypes, incomeAccountTypes } from '@/data/accountTypes';
 	import { useRoute } from 'vue-router';
 	import TopDate from '@/components/TopDate.vue';
-	import { ref, watch } from 'vue';
+	import { ref } from 'vue';
 	import TypeTotal from '@/components/TypeTotal.vue';
 	import AccountsTotal from '@/components/AccountsTotal.vue';
 	import type { TimeRange } from '@/stores/transactions';
@@ -37,10 +37,6 @@
 			range.value.start.setDate(1);
 		}
 	}
-
-	watch(range, () => console.log(range.value.start?.toUTCString()), {
-		deep: true
-	});
 </script>
 
 <template>
