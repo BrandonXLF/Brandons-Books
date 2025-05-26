@@ -7,7 +7,7 @@
 	} from '@/data/accountTypes';
 	import { useTransactionStore, type TimeRange } from '@/stores/transactions';
 	import Figure from '@/components/Figure.vue';
-import { computed } from 'vue';
+	import { computed } from 'vue';
 
 	const props = defineProps<{
 		book: UUID;
