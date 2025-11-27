@@ -43,7 +43,7 @@
 				</ActionPopup>
 			</Actions>
 		</div>
-		<div>
+		<div :class="transaction.closing ? 'closing-date' : ''">
 			<template v-if="index === 0">
 				{{ transaction.date.getUTCFullYear() }}-{{
 					(transaction.date.getUTCMonth() + 1).toString().padStart(2, '0')
@@ -81,6 +81,10 @@
 </template>
 
 <style scoped>
+	.closing-date {
+		font-weight: bolder;
+	}
+
 	.summary {
 		font-style: italic;
 	}

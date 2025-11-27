@@ -1,6 +1,6 @@
 <script setup lang="ts">
 	import { useAccountStore } from '@/stores/accounts';
-	import type { AccountChange } from '@/stores/transactions';
+	import type { AccountChange, TransactionData } from '@/stores/transactions';
 	import { useTransactionStore } from '@/stores/transactions';
 	import { ref, computed } from 'vue';
 	import { useRoute } from 'vue-router';
@@ -30,6 +30,7 @@
 
 	const date = ref<Date | undefined | null>(transaction?.date);
 	const summary = ref<string>(transaction?.summary ?? '');
+	const closing = ref<boolean>(transaction?.closing ?? false);
 
 	const changes = ref<AccountChange[]>(
 		transaction?.changes.map(change => ({ ...change })) || []
@@ -80,13 +81,19 @@
 			return;
 		}
 
-		transactions.addTransaction({
+		const data: Omit<TransactionData, "number"> & { number?: UUID; } = {
 			book,
 			number: props.number,
 			changes: changesWithValue.value,
 			date: new Date(date.value),
 			summary: summary.value
-		});
+		};
+
+		if (closing.value) {
+			data.closing = true;
+		}
+
+		transactions.addTransaction(data);
 
 		emit('success');
 	}
@@ -139,4 +146,25 @@
 			<SVGButton>+ Create Account</SVGButton>
 		</ActionPopup>
 	</div>
+	<div class="closing-entry">
+		<label>
+			<input
+				type="checkbox"
+				v-model="closing"
+			/>
+			<abbr title="Do not include this transaction in income statements for the same day"
+				>This is a closing entry
+			</abbr>
+		</label>
+	</div>
 </template>
+
+<style>
+	.closing-entry input {
+		margin-right: 0.5em;
+	}
+
+	.closing-entry label > * {
+		vertical-align: middle;
+	}
+</style>

@@ -21,6 +21,7 @@ export interface TransactionData {
 	date: Date;
 	summary: string;
 	changes: AccountChange[];
+	closing?: boolean;
 }
 
 export interface TimeRange {
@@ -58,6 +59,12 @@ export const useTransactionStore = defineStore('transactions', () => {
 			if (
 				(timeRange?.end && transaction.date > timeRange?.end) ||
 				(timeRange?.start && transaction.date < timeRange?.start)
+			)
+				continue;
+			if (
+				timeRange?.end &&
+				transaction.closing &&
+				timeRange.end.getTime() === transaction.date.getTime()
 			)
 				continue;
 
